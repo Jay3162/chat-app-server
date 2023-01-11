@@ -6,7 +6,7 @@ const http = require("http").Server(app);
 const PORT = process.env.PORT || 4000;
 const socketIO = require("socket.io")(http, {
     cors: {
-        origin: "http://localhost:3000"
+        origin: "https://unique-figolla-069883.netlify.app"
     }
 });
 
@@ -39,9 +39,9 @@ socketIO.on("connection", (socket) => {
 
     socket.on("disconnect", () => {
         console.log(`user disconnected - ${socket.id}`);
-        users = users.filter((user) => socket.id !== user.socketID)
-        socketIO.emit("newUserResponse", users)
-        socket.disconnect()
+        regUsers = regUsers.filter((user) => socket.id !== user.socketID);
+        socketIO.emit("newUserResponse", users);
+        socket.disconnect();
     });
 });
 
