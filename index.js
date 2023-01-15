@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 4000;
 const socketIO = require("socket.io")(http, {
     cors: {
         origin: "https://unique-figolla-069883.netlify.app"
+        // origin: "http://localhost:3000"
     }
 });
 
@@ -19,7 +20,6 @@ let regUsers = [];
 socketIO.on("connection", (socket) => {
     socket.on("message", msg => {
       socketIO.emit("chatResponse", msg)
-      console.log(socket.id)
     })
 
     socket.on("authmessage", txt => {
