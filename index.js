@@ -6,8 +6,8 @@ const http = require("http").Server(app);
 const PORT = process.env.PORT || 4000;
 const socketIO = require("socket.io")(http, {
     cors: {
-        origin: "https://unique-figolla-069883.netlify.app"
-        // origin: "http://localhost:3000"
+        // origin: "https://unique-figolla-069883.netlify.app"
+        origin: "http://localhost:3000"
     }
 });
 
@@ -32,6 +32,10 @@ socketIO.on("connection", (socket) => {
     })
 
     socket.on("newRegUser", data => {
+        if (regUsers.findIndex((user) => user.newUsername === data.newUsername) !== -1) {
+            socket.emit("user already exists");
+            return;
+        }
         regUsers.push(data)
         console.log(data)
         socketIO.emit("newRegUserResponse", regUsers)
@@ -39,6 +43,7 @@ socketIO.on("connection", (socket) => {
 
     socket.on("disconnect", () => {
         console.log(`user disconnected - ${socket.id}`);
+        console.log(socket.id, regUsers);
         regUsers = regUsers.filter((user) => socket.id !== user.socketID);
         socketIO.emit("newUserResponse", users);
         socket.disconnect();
