@@ -6,8 +6,8 @@ const http = require("http").Server(app);
 const PORT = process.env.PORT || 4000;
 const socketIO = require("socket.io")(http, {
     cors: {
-        // origin: "https://unique-figolla-069883.netlify.app"
-        origin: "http://localhost:3000"
+        origin: "https://unique-figolla-069883.netlify.app"
+        // origin: "http://localhost:3000"
     }
 });
 
