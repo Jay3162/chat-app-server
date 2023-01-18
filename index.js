@@ -34,7 +34,7 @@ socketIO.on("connection", (socket) => {
     })
 
     socket.on("typing", data => {
-        socketIO.emit("typer", data)
+        socketIO.broadcast.emit("typer", data)
     })
 
     socket.on("disconnect", () => {
